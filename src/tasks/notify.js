@@ -1,6 +1,5 @@
 'use strict'
 
-const _ = require('lodash')
 const config = require('../config')
 const Botkit = require('botkit')
 const getLunchOffers = require("../modules/scrape-food-offers");
@@ -10,25 +9,32 @@ var bot = controller.spawn()
 
 bot.configureIncomingWebhook({url: config('WEBHOOK_URL')})
 
-const msgDefaults = {
-    response_type: 'in_channel',
-    username: 'FuudBott',
-    icon_emoji: config('ICON_EMOJI')
-}
-
-const lunchOffers = getLunchOffers().then((offers) => {
+getLunchOffers().then((offers) => {
     const menus = Object.entries(offers).map(([key, value]) => ({
-        title: key,
-        text: value.join("\n"),
-        mrkdwn_in: ['text', 'pretext']
+        text: [key, ...value].join("\n"),
+        blocks: [
+            {
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": key
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": value.join("\n")
+                }
+            }
+        ]
     }));
-    let msg = _.defaults({menus: menus}, msgDefaults)
-    console.log(msg);
 
-    bot.sendWebhook(JSON.stringify(msg), (err, res) => {
-        if (err) throw err
-
-        console.log(`\nMenus delivered!`)
-    })
+    menus.forEach((m) => {
+        bot.sendWebhook(m, (err, res) => {
+            if (err) throw err
+        })
+    });
+    console.log(`\nMenus delivered!`)
 });
 
