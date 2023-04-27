@@ -10,7 +10,7 @@ const msgDefaults = {
   icon_emoji: config('ICON_EMOJI')
 }
 
-let attachments = [
+const attachments = [
   {
     title: 'Starbot will help you find the hippest repos on GitHub',
     color: '#2FA44F',
@@ -26,14 +26,13 @@ let attachments = [
 ]
 
 const handler = (payload, res) => {
-  let msg = _.defaults({
+  const msg = _.defaults({
     channel: payload.channel_name,
-    attachments: attachments
+    attachments
   }, msgDefaults)
 
   res.set('content-type', 'application/json')
   res.status(200).json(msg)
-  return
 }
 
-module.exports = { pattern: /help/ig, handler: handler }
+module.exports = { pattern: /help/ig, handler }
