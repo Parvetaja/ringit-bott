@@ -26,6 +26,7 @@
     "express": "^4.13.4",
     "express-http-proxy": "^0.6.0",
     "lodash": "^4.6.1",
+    "puppeteer": "^19.11.1",
     "slack": "^6.1.0"
   },
   "keywords": [

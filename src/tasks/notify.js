@@ -31,10 +31,9 @@ getLunchOffers().then((offers) => {
     }));
 
     menus.forEach((m) => {
-        bot.sendWebhook(m, (err, res) => {
+        bot.sendWebhook(m, (err) => {
             if (err) throw err
         })
     });
     console.log(`\nMenus delivered!`)
 });
-

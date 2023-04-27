@@ -2,6 +2,7 @@
 
 const axios = require("axios");
 const cheerio = require("cheerio");
+const puppeteer = require('puppeteer');
 
 const ROTERMANN_URL = "https://www.rotermann.eu/lounapakkumised/";
 const BASIILIK_URL = "https://basiilik.ee/en/daily-specials/"
@@ -12,7 +13,16 @@ const BLACKLIST = [
     "R14",
     "Om House",
     "Levier",
-    "Orangerie"
+    "Orangerie",
+    "OASIS"
+]
+
+const DAYS_OF_WEEK = [
+    "Esmaspäev",
+    "Teisipäev",
+    "Kolmapäev",
+    "Neljapäev",
+    "Reede"
 ]
 
 async function getRotermanniLunchOffers() {
@@ -41,11 +51,35 @@ async function getRotermanniLunchOffers() {
     return menus;
 }
 
+async function getBasiilikLunchOffer() {
+    const offers = [];
+    const browser = await puppeteer.launch({ headless: 'new' });
+    const page = await browser.newPage();
+    await page.goto(BASIILIK_URL);
+    await page.waitForSelector('.day');
+    const $ = cheerio.load((await page.content()));
+
+    const selectedElem = '.day';
+
+    $(selectedElem).children().each((parentIndex, parentElem) => {
+        if ($(parentElem).text().includes(DAYS_OF_WEEK[new Date().getDay() - 1])) {
+            $(parentElem).siblings().each((_, el) => {
+                const offer = [];
+                $(el).children().each((_, e) => {
+                    offer.push($(e).text());
+                });
+                offers.push(offer.join(" "));
+            });
+        }
+    });
+    await browser.close();
+    return offers.map((o) => `-${o}`);
+}
+
 async function getLunchOffers() {
     const menus = await getRotermanniLunchOffers();
-    // TODO menus['Basiilik'] = getBasiilikLunchOffer();
+    menus['Basiilik'] = await getBasiilikLunchOffer();
 
-    //console.log(menus);
     return menus;
 }
 
