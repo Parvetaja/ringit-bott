@@ -53,7 +53,7 @@ async function getRotermanniLunchOffers() {
 
 async function getBasiilikLunchOffer() {
   const offers = []
-  const browser = await puppeteer.launch({ headless: 'new' })
+  const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] })
   const page = await browser.newPage()
   await page.goto(BASIILIK_URL)
   await page.waitForSelector('.day')
