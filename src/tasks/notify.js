@@ -4,36 +4,41 @@ const config = require('../config')
 const Botkit = require('botkit')
 const getLunchOffers = require('../modules/scrape-food-offers')
 
-const controller = Botkit.slackbot({})
-const bot = controller.spawn()
 
-bot.configureIncomingWebhook({ url: config('WEBHOOK_URL') })
+if (![6, 7].includes(new Date().getDay())) {
+  const controller = Botkit.slackbot({})
+  const bot = controller.spawn()
 
-getLunchOffers().then((offers) => {
-  const menus = Object.entries(offers).map(([key, value]) => ({
-    text: [key, ...value].join('\n'),
-    blocks: [
-      {
-        type: 'header',
-        text: {
-          type: 'plain_text',
-          text: key
+  bot.configureIncomingWebhook({ url: config('WEBHOOK_URL') })
+
+  getLunchOffers().then((offers) => {
+    const menus = Object.entries(offers).map(([key, value]) => ({
+      text: [key, ...value].join('\n'),
+      blocks: [
+        {
+          type: 'header',
+          text: {
+            type: 'plain_text',
+            text: key
+          }
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: value.join('\n')
+          }
         }
-      },
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: value.join('\n')
-        }
-      }
-    ]
-  }))
+      ]
+    }))
 
-  menus.forEach((m) => {
-    bot.sendWebhook(m, (err) => {
-      if (err) throw err
+    menus.forEach((m) => {
+      bot.sendWebhook(m, (err) => {
+        if (err) throw err
+      })
     })
+    console.log('\nMenus delivered!')
   })
-  console.log('\nMenus delivered!')
-})
+} else {
+  console.log("It's the weekend, no lunch offers today!")
+}
