@@ -5,7 +5,7 @@ const Botkit = require('botkit')
 const getLunchOffers = require('../modules/scrape-food-offers')
 
 
-if (![6, 7].includes(new Date().getDay())) {
+if (![6, 0].includes(new Date().getDay())) {
   const controller = Botkit.slackbot({})
   const bot = controller.spawn()
 
