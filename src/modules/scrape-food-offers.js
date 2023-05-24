@@ -41,7 +41,7 @@ async function getRotermanniLunchOffers() {
           .split('\n')
           .map((item) => item.trim())
           .filter((item) => item !== '')
-          .filter((item, i) => item.startsWith('-') || i === 0)
+          .filter((item, i) => item.startsWith('-') || item.startsWith('–') || i === 0)
 
         if (BLACKLIST.findIndex((s) => value[0].includes(s)) === -1) {
           menus[value[0]] = value.slice(1)
