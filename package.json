@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./src",
     "notify": "node ./src/tasks/notify",
-    "scraper": "node ./src/modules/scrape-food-offers",
+    "scraper": "node ./src/tasks/scrape",
     "test": "standard"
   },
   "author": {

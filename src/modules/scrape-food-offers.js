@@ -14,7 +14,8 @@ const BLACKLIST = [
   'Om House',
   'Levier',
   'Orangerie',
-  'OASIS'
+  'OASIS',
+  'Stalker'
 ]
 
 const DAYS_OF_WEEK = [
