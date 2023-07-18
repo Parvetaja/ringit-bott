@@ -13,7 +13,6 @@ const BLACKLIST = [
   'R14',
   'Om House',
   'Levier',
-  'Orangerie',
   'OASIS',
   'Stalker'
 ]
