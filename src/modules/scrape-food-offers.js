@@ -46,14 +46,37 @@ async function getRotermanniLunchOffers () {
   return menus
 }
 
+const collectData = async (page) => {
+  try {
+    await page.goto(BASIILIK_URL)
+    await page.waitForSelector('.day')
+    return await page.content()
+  } catch (err) {
+    console.error(err.message)
+    return false
+  }
+}
+
 async function getBasiilikLunchOffer () {
   const offers = []
   const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] })
   const page = await browser.newPage()
-  await page.goto(BASIILIK_URL)
-  await page.waitForSelector('.day')
-  const $ = cheerio.load((await page.content()))
 
+  let data = false
+  let attempts = 0
+
+  while (data === false && attempts < 5) {
+    data = await collectData(page)
+    attempts += 1
+    if (!data) {
+      await new Promise((resolve) => setTimeout(resolve, 3000))
+    }
+  }
+  if (!data) {
+    return offers
+  }
+
+  const $ = cheerio.load(data)
   const selectedElem = '.day'
 
   $(selectedElem).children().each((parentIndex, parentElem) => {
