@@ -13,8 +13,7 @@ const BLACKLIST = [
   'R14',
   'Om House',
   'Levier',
-  'OASIS',
-  'Stalker'
+  'OASIS'
 ]
 
 const DAYS_OF_WEEK = [
@@ -96,7 +95,7 @@ async function getBasiilikLunchOffer () {
 
 async function getLunchOffers () {
   const menus = await getRotermanniLunchOffers()
-  menus.Basiilik = await getBasiilikLunchOffer()
+  //menus.Basiilik = await getBasiilikLunchOffer()
 
   return menus
 }
