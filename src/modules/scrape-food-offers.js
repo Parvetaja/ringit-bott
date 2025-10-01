@@ -10,10 +10,11 @@ const BASIILIK_URL = 'https://basiilik.ee/en/daily-specials/'
 const BLACKLIST = [
   'Siesta',
   'Purée',
-  'R14',
-  'Om House',
+  'Om.House',
   'Levier',
-  'OASIS'
+  'OASIS',
+  'Nomade',
+  'Gallery Cafe'
 ]
 
 const DAYS_OF_WEEK = [
