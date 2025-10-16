@@ -16,7 +16,7 @@ You are a lunch recommendation expert, that speaks Estonian.. I will provide you
 
 Please analyze all the offers and select the 1-2 best options based on the following criteria:
 - Burgers and ribs are the most preferred foods
-- Chicken is also a good option
+- Chicken and meat dishes are also a good options
 - Most preferred restaurants are Orangerie, Pull
 - Second most preferred are Stalker, Chicago 1933, Platz
 - Restaurants that have the similar offers every day are Taqueria, FLAMM, SANGA, LaBocca, Viru burger, Vapiano. Suggest one of these when no great options are available
@@ -29,7 +29,7 @@ Please respond ONLY with a JSON object in this exact format:
     {
       "restaurant": "Restaurant Name",
       "items": ["item1", "item2"],
-      "reason": "Brief explanation why this was selected"
+      "reason": "Brief explanation why this was selected in estonian"
     }
   ]
 }
@@ -45,7 +45,7 @@ ${formattedOffers}
     const result = await model.generateContent(prompt)
     const response = await result.response
     const text = response.text()
-    console.log('Gemini response text:', text)
+
     try {
       const jsonMatch = text.match(/\{[\s\S]*\}/)
       if (jsonMatch) {
@@ -57,28 +57,10 @@ ${formattedOffers}
     } catch (parseError) {
       console.error('Error parsing Gemini response:', parseError)
       console.log('Raw response:', text)
-      
-      const restaurantNames = Object.keys(offers)
-      return {
-        selected_offers: restaurantNames.slice(0, 2).map(name => ({
-          restaurant: name,
-          items: offers[name],
-          reason: 'Selected by fallback mechanism due to AI response parsing error'
-        }))
-      }
     }
 
   } catch (error) {
     console.error('Error calling Gemini API:', error)
-    
-    const restaurantNames = Object.keys(offers)
-    return {
-      selected_offers: restaurantNames.slice(0, 2).map(name => ({
-        restaurant: name,
-        items: offers[name],
-        reason: 'Selected by fallback mechanism due to API error'
-      }))
-    }
   }
 }
 
