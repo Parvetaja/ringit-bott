@@ -14,14 +14,15 @@ async function selectBestLunchOffers(offers, customPrompt = null) {
     const defaultPrompt = `
 You are a lunch recommendation expert, that speaks Estonian.. I will provide you with lunch offers from different restaurants.
 
-Please analyze all the offers and select the 1-2 best options based on the following criteria:
-- Burgers and ribs are the most preferred foods
-- Chicken and meat dishes are also a good options
+Please analyze all the offers and select the 2 best options based on the following criteria:
+- Burgers and ribs are the most preferred foods. Caesar salad with chicken from Orangerie should always be the first choice
+- Chicken and meat dishes are also good options
 - Most preferred restaurants are Orangerie, Pull
 - Second most preferred are Stalker, Chicago 1933, Platz
-- Restaurants that have the similar offers every day are Taqueria, FLAMM, SANGA, LaBocca, Viru burger, Vapiano. Suggest one of these when no great options are available
-- Do not suggest offers with fish or salads
-- Pizza is a good fallback option if nothing else stands out, especially if its with chicken or pepperoni
+- Restaurants that have similar offers weekly are Taqueria, FLAMM, SANGA, LaBocca, Viru burger, Vapiano. Suggest one of these when no great options are available
+- Do not suggest offers that contain fish or mushrooms. Also no salads except for caesar salad with chicken
+- Pizza is a good fallback option if nothing else stands out, especially if it's with chicken or pepperoni
+- Best option should be the first one in the response
 
 Please respond ONLY with a JSON object in this exact format:
 {
