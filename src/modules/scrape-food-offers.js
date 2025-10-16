@@ -10,7 +10,7 @@ const BASIILIK_URL = 'https://basiilik.ee/en/daily-specials/'
 const BLACKLIST = [
   'Siesta',
   'Purée',
-  'Om.House',
+  'Om.house',
   'Levier',
   'OASIS',
   'Nomade',
