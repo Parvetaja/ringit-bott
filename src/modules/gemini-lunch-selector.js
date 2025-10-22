@@ -5,14 +5,14 @@ const config = require('../config')
 
 const genAI = new GoogleGenerativeAI(config('GEMINI_API_KEY'))
 
-async function selectBestLunchOffers(offers, customPrompt = null) {
+async function selectBestLunchOffers(offers) {
   try {
     const formattedOffers = Object.entries(offers).map(([restaurant, items]) => {
       return `**${restaurant}:**\n${items.join('\n')}`
     }).join('\n\n')
 
-    const defaultPrompt = `
-You are a lunch recommendation expert, that speaks Estonian.. I will provide you with lunch offers from different restaurants.
+    const prompt = `
+You are a lunch recommendation expert that speaks Estonian. I will provide you with lunch offers from different restaurants.
 
 Please analyze all the offers and select the 2 best options based on the following criteria:
 - Burgers and ribs are the most preferred foods. Caesar salad with chicken from Orangerie should always be the first choice
@@ -22,7 +22,11 @@ Please analyze all the offers and select the 2 best options based on the followi
 - Restaurants that have similar offers weekly are Taqueria, FLAMM, SANGA, LaBocca, Viru burger, Vapiano. Suggest one of these when no great options are available
 - Do not suggest offers that contain fish or mushrooms. Also no salads except for caesar salad with chicken
 - Pizza is a good fallback option if nothing else stands out, especially if it's with chicken or pepperoni
-- Best option should be the first one in the response
+
+In addition, calculate the approximate kcal and protein content for each selected offer based on typical values for similar dishes.
+Add the kcal and protein information next to each item in the format (kcal: XXX, proteiin: XXg).
+
+Best option should be the first one in the response.
 
 Please respond ONLY with a JSON object in this exact format:
 {
@@ -39,9 +43,6 @@ Here are today's lunch offers:
 
 ${formattedOffers}
 `
-
-    const prompt = customPrompt || defaultPrompt
-
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
     const result = await model.generateContent(prompt)
     const response = await result.response
