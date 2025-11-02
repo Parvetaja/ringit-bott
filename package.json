@@ -38,7 +38,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": "16.x"
+    "node": "20.x"
   },
   "devDependencies": {
     "standard": "^17.0.0"
