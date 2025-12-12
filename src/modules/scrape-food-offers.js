@@ -14,7 +14,11 @@ const BLACKLIST = [
   'Levier',
   'OASIS',
   'Nomade',
-  'Gallery Cafe'
+  'Gallery Cafe',
+  'BALI',
+  'Kalve Coffee',
+  'St. Patrick’s',
+  
 ]
 
 const DAYS_OF_WEEK = [

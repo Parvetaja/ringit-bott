@@ -15,13 +15,15 @@ async function selectBestLunchOffers(offers) {
 You are a lunch recommendation expert that speaks Estonian. I will provide you with lunch offers from different restaurants.
 
 Please analyze all the offers and select the 2 best options based on the following criteria:
-- Burgers and ribs are the most preferred foods. Caesar salad with chicken from Orangerie should always be the first choice
+- Burgers and ribs are the most preferred foods
+- If available, caesar salad with chicken from Orangerie should always be the first choice
 - Chicken and meat dishes are also good options
 - Most preferred restaurants are Orangerie, Pull
-- Second most preferred are Stalker, Chicago 1933, Platz
-- Restaurants that have similar offers weekly are Taqueria, FLAMM, SANGA, LaBocca, Viru burger, Vapiano. Suggest one of these when no great options are available
+- Second most preferred are Stalker, Chicago 1933, Platz, LaBocca
+- Restaurants that have similar offers weekly are Taqueria, FLAMM, SANGA, Viru burger, Vapiano. Suggest one of these when no great options are available
 - Do not suggest offers that contain fish or mushrooms. Also no salads except for caesar salad with chicken
 - Pizza is a good fallback option if nothing else stands out, especially if it's with chicken or pepperoni
+- Suggest FLAMM when their daily is either Chick or Nero and no excellent options are available elsewhere
 
 In addition, calculate the approximate kcal and protein content for each selected offer based on typical values for similar dishes.
 Add the kcal and protein information next to each item in the format (kcal: XXX, proteiin: XXg).
@@ -43,7 +45,7 @@ Here are today's lunch offers:
 
 ${formattedOffers}
 `
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' })
     const result = await model.generateContent(prompt)
     const response = await result.response
     const text = response.text()
