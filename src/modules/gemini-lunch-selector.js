@@ -25,9 +25,15 @@ Please analyze all the offers and select the 2 best options based on the followi
 - Pizza is a good fallback option if nothing else stands out, especially if it's with chicken or pepperoni
 - Suggest FLAMM when their daily is either Chick or Nero and no excellent options are available elsewhere
 
-Additionally, Identify all main components and estimate their weights in grams of the selected best offers.
+Additionally, identify all main components of the selected best offers and estimate their weights in grams.
 Calculate the approximate calories (kcal), protein (proteiin), fats (rasvad), and carbohydrates (süsivesikud).
-Add the nutritional information next to each item in the format (kcal: XXX, proteiin: XXg, rasvad: XXg, süsivesikud: XXg).
+Add the total nutritional information next to each selected offer in the format (kcal: XXX, proteiin: XXg, rasvad: XXg, süsivesikud: XXg).
+
+Example:
+Input:
+- Chicken burger with fries
+Output:
+- Chicken burger with fries kcal: 900kcal, proteiin: 40g, rasvad: 35g, süsivesikud: 25g)
 
 Best option should be the first one in the response.
 
