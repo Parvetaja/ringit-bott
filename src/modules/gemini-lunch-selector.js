@@ -21,7 +21,7 @@ Please analyze all the offers and select the 2 best options based on the followi
 - Most preferred restaurants are Orangerie, Pull
 - Second most preferred are Stalker, Chicago 1933, Platz, LaBocca
 - Restaurants that have similar offers weekly are Taqueria, FLAMM, SANGA, Viru burger, Vapiano. Suggest one of these when no great options are available
-- Do not suggest offers that contain fish or mushrooms. Also no salads except for caesar salad with chicken
+- Do not suggest offers that contain fish or mushrooms. Also no salads as the main dish (its okay as a side) except for caesar salad with chicken
 - Pizza is a good fallback option if nothing else stands out, especially if it's with chicken or pepperoni
 - Suggest FLAMM when their daily is either Chick or Nero and no excellent options are available elsewhere
 
@@ -45,7 +45,7 @@ Here are today's lunch offers:
 
 ${formattedOffers}
 `
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
     const result = await model.generateContent(prompt)
     const response = await result.response
     const text = response.text()
