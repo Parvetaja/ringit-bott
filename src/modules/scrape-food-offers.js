@@ -18,7 +18,8 @@ const BLACKLIST = [
   'BALI',
   'Kalve Coffee',
   'St. Patrick’s',
-  
+  'Gobi',
+  'FUME'
 ]
 
 const DAYS_OF_WEEK = [
