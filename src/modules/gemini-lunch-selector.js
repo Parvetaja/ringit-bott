@@ -52,7 +52,7 @@ Here are today's lunch offers:
 
 ${formattedOffers}
 `
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-3.5-flash' })
     const result = await model.generateContent(prompt)
     const response = await result.response
     const text = response.text()
